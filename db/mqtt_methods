@@ -1,0 +1,45 @@
+store_temp(nodes_list,topic,temp) DONE!!!
+    - check if topic is tmp
+    - get node id from topic
+    - check if node id is present in the nodes_list
+        Yes:
+            get patient id, corresponding to node
+                - Invoke get patient
+            store temp:
+                - Invoke add_temp
+        No:
+            return 
+store_temp(nodes_list,topic,bpm) DONE!!!
+    - check if topic is bpm
+    - get node id from topic
+    - check if node id is present in the nodes_list
+        Yes:
+            get patient id, corresponding to node
+                - Invoke get patient
+            store bpm:
+                - Invoke add_bpm
+        No:
+            return there is no
+
+handle_emergency(nodes_list,topic):
+    - Check if topic is about emergency
+    - Get correspoinding patientID:
+        - Invoke get_patient
+        Yes:
+        - Store new notification to db:
+            - Invoke add_notificatoin
+        No:
+            - 
+
+handle_request(topic):
+    - Check if topic is about request
+    - Get correspoinding patientID:
+        - Invoke get_patient
+        Yes:
+        - Store new notification to db:
+            - Invoke add_notificatoin
+        No:
+            - 
+
+ from dbuti
+

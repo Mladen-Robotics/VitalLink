@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith%}
+    <h1>Създай си профил</h1>
+    <form method="POST" action="">
+        <label for="name">Име:</label>
+        <input id="name" name="name">
+        <br>
+        <label for="speciality">Специалност:</label>
+        <input required="True" id="speciality" name="speciality">
+        <br>
+        <label for="username" >Потребителско име:</label>
+        <input required="True" type="text" id="username" name="username">
+        <br>
+        <label for="password">Парола:</label>
+        <input required="True" type="password" id="password" name="password">
+        <br>
+        <input type="submit" value="Създай профил">
+    </form>
+    <p>Вече имате профил?</p>
+    <a href="{{ url_for('auth.login') }}">Влезте тук</a>
+</body>
+</html>

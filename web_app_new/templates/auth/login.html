@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='auth/login_style.css') }}">
+</head>
+<body>
+    <h1>Добре Дошли!!</h1>
+    <h2>Влезте в системата:</h2>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+            {% for message in messages %}
+                <li class="errors">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+            
+    <form action="" method="POST">
+        <label for="username">Username:</label>
+        <input required="True" type="text" id = "username" name="username">
+        <br>
+        <label for="password">Password:</label>
+        <input required="True" type="password" id="password" name="password">
+        <br>
+        <input type="submit" value="Влез">
+    </form>
+    <p>Нямате профил?</p>
+    <a href="{{ url_for('auth.signup') }}">Създайте тук</a>
+</body>
+</html>

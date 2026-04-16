@@ -1,0 +1,7 @@
+Those two python files are the definitive version of VitalLink.
+
+pico_without_OLDE.py:
+    this script should be uploaded to boards without OLED display connected
+
+full_program.py
+    this script is for boards containing the full hardware(inc. OLED display).

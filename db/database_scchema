@@ -1,0 +1,337 @@
+user: DONE!!!!
+    create_user(name, speciality, username, passsword): DONE
+        - Check if user exists
+            get_user
+            Yes:
+                Return "User does not exist"
+            No:
+             - Add user
+              - Return "Done"
+
+    edit_user(name, speciality, username, password) NO
+        - Check if user exists
+            get_user
+            Yes:    
+                - Edit user
+                - Return "Done"
+            No:
+                - Return "user does not exist"
+
+    remove_user(userID) DONE
+        - Check if user exists
+            get_user
+            Yes:
+                - remove user
+                - return Done
+            No:
+                - return "user does not exist"
+
+
+    get_user(userID=None, name=None, speciality=None, username=Nonepassword=None)
+        - Filter by what is provided
+            Find if name exists
+            Find if username exists
+            Find if password exists
+        Yes:
+            return user
+        No:
+            return None
+
+patient: DONE!!!!
+    add_patient(nodeID,name, description, room_num) DONE!!
+        - Check if patient exists
+            - Invoke get_patient
+                - check if room_num exists
+                - check if name exists  
+                - NodeID
+            Yes:
+                return error
+            No:
+                return None
+
+    edit_patient(patientID,name=None, description=None, room_num=None, pinned=None) DONE!!
+        - Check if patient exists based on provided data
+            Invoke get_patient
+            Yes:
+                if pinned = True:
+                    - Check pinnned_count
+                        - Invoke pinned_count
+                    Yes:
+                        uppdate
+                    No:
+                        return None
+                if pinned = False:
+                    - Check pinned count:
+                    Yes:
+                        - update
+                    No:
+                        - return None
+
+    remove patient(patientID) DONE!!!
+          - Check if patient exists
+                - Invoke get_patient
+            Yes:
+                remove patient
+            No:
+                return None
+
+    get_patient(patientID=None,nodeID=None,name=None,description=None, room_num=None, pinned=None) DONE!
+        - Query based on what is provided
+        
+    pin(patientID) No
+        - Check if patient exists
+            - Invoke edit_patient
+        Yes:
+            return success
+        No:
+            - return None
+
+    unpin(patientID) No
+         - Check if patient exists
+            - Invoke get_patient
+        Yes:
+            - pin patient
+                - invoke edit_patient
+            return success
+        No:
+            - return error
+     
+    pinned_count() DONE
+        - Query db
+        return count
+
+
+notes: DONE!!!!
+    add_note(patientID, description):  DONE!!!
+        - Check if patient exists
+            - Invoke get_patient
+               Yes:
+                    Store note
+                    return True
+                No:
+                    return None
+
+    edit_note(noteID, description) DONE!!!
+        Check if note exists:
+            - Invoke get_notes
+            Yes:
+                return True
+            No:
+                return False
+
+    remove_note(noteID=None,patientID=None) DONE!!!
+        Check if note exists:
+            - Invoke get_notes
+
+            Yes:
+                return True
+            No:
+                return False
+        - 
+    get_notes(patientID=None,noteID=None) DONE!!!
+        - Check if patientID exists
+            - Invoke get_patient
+            Yes:
+                   return notes
+            No:
+                    returnn None
+
+notifications: DONE!!!
+    add_notification(patientID, type, confirmed) DONE!!!
+        - check  if patient  exists
+          - invoke get_patient
+            Yes:
+                write notificaton
+                return True
+            No:
+                return None
+    remove_notification(notificationID = None,patientID=None) DONE!!!!
+        Check if notificationId exists
+            -invoke get_notification
+            Yes:
+                remove notification
+                return True
+            No:
+                return error
+
+    get_notifications(patientID=None,notificationID): DONE!!!!
+        append parameters
+        
+
+
+measurments:
+    add_temp(patientID, temp):  DONE!!!
+        - Check if patient exists
+            - invoke get_patient
+            Yes:
+                write temp
+                return True
+            No:
+                return None
+
+    add_bpm(patientID, bpm)   DONE!!!
+     - Check if patient exists
+                - invoke get_patient
+                Yes:
+                    write bpm
+                    return True
+                No:
+                    return None
+    get_temp(patientID, n):
+        check if patientID exists
+            -invoke get_patient
+            Yes:
+                get_temp
+                return temp   !!!!!!!!!!!! Check if INFLUXDB returns  NONE 
+            No:
+                return None
+
+    get_bpm(patientID, n):
+        check if patientID exists
+            -invoke get_patient
+            Yes:
+                get_temp
+                return temp   !!!!!!!!!!!! Check if INFLUXDB returns  NONE 
+            No:
+                return None
+
+
+                    VIEWS:
+User:
+login(/login) Enforce non empty fields DONE
+    - Invoke get_user
+        Yes:
+            - Create a session cookie
+            - Redirect user to main dashboard
+        No:
+            - Flash a message
+            - Redirect user to login page again
+
+signup(/signup) !! Enforse non empty fields 
+    - Check if user exists
+        get_user
+        Yes:
+            - flash message
+            - Return the same page
+        No:
+            - Create user
+            - store session cookie
+            - redirect to login page
+logout(/logout)
+    - Clean session store
+    - Return Null
+
+index(/)
+    - Check if user is logged
+        - Invoke get_user
+        Yes:
+            return temlate
+        No:
+            redirect to /about
+about(/about)
+    - Return about template
+
+patient_info(/patient/<id>)
+    - Check if user patient exists
+        Yes:
+            Return patient dashboard
+        No:
+            - return 'patient does not exist'
+
+API:
+User: DONE!!!!
+create_user('/create_user?name="",speciality&username&password') DONE
+    Check if user exists
+        - get_user
+        Yes:
+            return user
+        False:
+            return "user does not exist"
+
+remove_user('/user/<id>/remove') DONE
+    Invoke
+        get_user
+        Yes:
+            - remove user
+        No:
+            - return "user does not exist"
+
+             
+
+get_user('/user/<id>') DONE
+    Invoke get_user
+    Yes:
+        - return user
+    No:
+        - return "User does not exist"
+        
+    n success
+
+Patient: DONE!!!!!!!!!!
+    create_patient_api(/create_patient?nodeId&name&descrition&room_num):  DONE!!!!
+        Create patient:
+            - Invoke add_patient
+            Yes:
+                return success
+            No:
+                return error
+    remove_patient(/remove_patient/<id>) DONE!!!!
+        Remove patient
+            - Invoke remove patient
+           ls Yes:
+                return success
+            No:
+                return error
+    edit_patient(/patient/<id>/edit?patientID&name&description&room_num&pinnned) DONE!!!
+        Edit patient:
+            - Invoke edit_patient
+    
+    get_patient(/patient/info?patientID&nodeID&name&room_num&descriiption&pinned) DONE!!!
+        Get patient:
+            - Invoke get_patient
+            Yes:
+                return patient
+            No:
+                return error
+            Yes:
+                return success
+            No:
+                return error
+    
+    pin_count(/patients/pin_count') DONE!!!!
+        Get pin count:
+            - Invoke pinned_count
+            return pin_count
+
+Notes: DONE!!!!
+add_note('/patient/<id>/add_note?descr'): DONE!!!
+    Add note:
+        - Invoke add_note
+        yes:
+            return success
+        no:
+            return error
+remove_note('/note/<id>/remove'): DONE!!!
+    Remove note:
+        - invoke remove_note
+        yes:
+            return success
+        no:
+            return error
+edit_note('/note/<id>/edit'):  DONE!!!
+    Edit note:
+        - Invoke edit note
+        Yes:
+            return succcess
+        No: 
+            return error
+
+get_note('/patient/<id>/notes')  DONE!!!
+    Get note:
+        - Invoke get note
+        Yes:
+            return notes
+        No:
+            return error
+
+    
